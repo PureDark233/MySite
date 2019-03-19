@@ -12,13 +12,13 @@
                                                                       datetime="{{ post.created_time }}">{{ post.created_time }}</time></a></span>
                             <span class="post-author"><a href="#">{{ post.author }}</a></span>
                             <span class="comments-link"><a href="#">Comments: {{ post.comment_set.count }}</a></span>
-                            <span class="views-count"><a href="#">588 阅读</a></span>
+                            <span class="views-count"><a href="#">Views: {{ post.views }}</a></span>
                         </div>
                     </header>
                     <div class="entry-content clearfix">
-                        <p>{{ post.excerpt }}</p>
+                        <p>{{ post.excerpt }}...</p>
                         <div class="read-more cl-effect-14">
-                            <a href="{{ post.get_absolute_url }}" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
+                            <a href="{{ post.get_absolute_url }}" class="more-link">continue to read<span class="meta-nav"></span></a>
                         </div>
                     </div>
                 </article>
@@ -75,7 +75,7 @@
         <div class="row">
             <div class="col-md-4 col-sm-5 col-xs-8">
                 <div class="logo">
-                    <h1><a href="index.html"><b>Black</b> &amp; White</a></h1>
+                    <h1><a href="index.html"><b>PureDark</b>233</a></h1>
                 </div>
             </div><!-- col-md-4 -->
             <div class="col-md-8 col-sm-7 col-xs-4">
@@ -126,19 +126,19 @@
                                 <span class="post-date"><a href="#"><time class="entry-date"
                                                                           datetime="{{ post.created_time }}">{{ post.created_time }}</time></a></span>
                                 <span class="post-author"><a href="#">{{ post.author }}</a></span>
-                                <span class="comments-link"><a href="#">4 评论</a></span>
-                                <span class="views-count"><a href="#">588 阅读</a></span>
+                                <span class="comments-link"><a href="{{ post.get_absolute_url }}">Comments: {{ post.comment_set.count }}</a></span>
+                                <span class="views-count"><a href="{{ post.get_absolute_url }}">Views: {{ post.views }}</a></span>
                             </div>
                         </header>
                         <div class="entry-content clearfix">
-                            <p>{{ post.excerpt }}</p>
+                            <p>{{ post.excerpt }}...</p>
                             <div class="read-more cl-effect-14">
-                                <a href="{{ post.get_absolute_url }}" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
+                                <a href="{{ post.get_absolute_url }}" class="more-link">Continue<span class="meta-nav">→</span></a>
                             </div>
                         </div>
                     </article>
                 {% empty %}
-                    <div class="no post">无发布文章！</div>
+                    <div class="no post">No article!</div>
                 {% endfor %}
 
                 <!-- 简单分页效果
@@ -255,7 +255,7 @@
             <div class="col-md-12">
                 <p class="copyright">&copy 2017 - 采集自<a href="http://www.cssmoban.com/"
                                                         target="_blank" title="模板之家">模板之家</a>
-                    - 由<a href="http://zmrenwu.com/" title="网页模板" target="_blank">追梦人物的博客</a>修改
+                    - 由<a href="http://zmrenwu.com/" title="追梦人物的博客" target="_blank">追梦人物的博客</a>修改
                 </p>
             </div>
         </div>

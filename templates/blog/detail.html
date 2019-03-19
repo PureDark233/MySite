@@ -8,8 +8,8 @@
                 <span class="post-date"><a href="#"><time class="entry-date"
                                                           datetime="{{ post.created_time }}">{{ post.created_time}}</time></a></span>
                 <span class="post-author"><a href="#">{{post.author}}</a></span>
-                <span class="comments-link"><a href="#">4 评论</a></span>
-                <span class="views-count"><a href="#">588 阅读</a></span>
+                <span class="comments-link"><a href="#">Comments: {{ post.comment_set.count }}</a></span>
+                <span class="views-count"><a href="#">Views: {{ post.views }}</a></span>
             </div>
         </header>
         <div class="entry-content clearfix">
@@ -18,7 +18,7 @@
     </article>
     <section class="comment-area" id="comment-area">
         <hr>
-        <h3>发表评论</h3>
+        <h3>Submit your comment!</h3>
         <form action="{% url 'comments:post_comment' post.pk %}" method="post" class="comment-form">
             {% csrf_token %}
             <div class="row">
@@ -46,7 +46,7 @@
             </div>
         </form>
         <div class="comment-list-panel">
-            <h3>评论列表，共 <span>{{ post.comment_set.count }}</span> 条评论</h3>
+            <h3>Comment List</h3>
             <ul class="comment-list list-unstyled">
                 {% for comment in comment_list %}
                 <li class="comment-item">
@@ -113,7 +113,7 @@
         <div class="row">
             <div class="col-md-4 col-sm-5 col-xs-8">
                 <div class="logo">
-                    <h1><a href="index.html"><b>Black</b> &amp; White</a></h1>
+                    <h1><a href="index.html"><b>PureDark</b>233</a></h1>
                 </div>
             </div><!-- col-md-4 -->
             <div class="col-md-8 col-sm-7 col-xs-4">
