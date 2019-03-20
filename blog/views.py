@@ -4,15 +4,16 @@ from .models import Post, Category, Tag
 from comments.forms import CommentForm
 import markdown
 from django.views.generic import ListView, DetailView
-
-
+from markdown.extensions.toc import TocExtension
+from django.utils.text import slugify
+from django.db.models import Q
 # Create your views here.
 
 class IndexView(ListView):
     model = Post
     template_name = 'blog/index.html'
     context_object_name = 'post_list'
-    paginate_by = 1
+    paginate_by = 4
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -105,11 +106,13 @@ class PostDetailView(DetailView):
 
     def get_object(self, queryset=None):
         post = super(PostDetailView, self).get_object(queryset=None)
-        post.body = markdown.markdown(post.body, extensions=[
+        md = markdown.Markdown(extensions=[
             'markdown.extensions.extra',
             'markdown.extensions.codehilite',
-            'markdown.extensions.toc',
+            TocExtension(slugify=slugify)
         ])
+        post.body=md.convert(post.body)
+        post.toc=md.toc
         return post
 
     def get_context_data(self, **kwargs):
@@ -121,6 +124,16 @@ class PostDetailView(DetailView):
             'comment_list': comment_list
         })
         return context
+
+def search(request):
+    q=request.GET.get('q')
+    error_msg=''
+    if not q:
+        error_msg="Please enter the keyword."
+        return render(request, 'blog/index.html', {'error_msg':error_msg})
+    post_list=Post.objects.filter(Q(title__icontains=q)|Q(body__icontains=q))
+    return render(request, 'blog/index.html', {'error_msg':error_msg,
+                                               'post_list':post_list})
 # def index(request):
 #     post_list=Post.objects.all().order_by('-created_time')
 #     return render(request, 'blog/index.html', context={'post_list':post_list})

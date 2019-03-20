@@ -1,5 +1,16 @@
 {% extends 'base.html' %}
 {% block main %}
+    {% if error_msg %}
+        <p>{{ error_msg }}</p>
+    {% endif %}
+
+
+    <!--<body>抑制内心的洪水猛兽。</body>-->
+    {% for post in post_list %}
+        ...
+    {% empty %}
+        <div class="no-post">Not found...</div>
+    {% endfor %}
     {% for post in post_list %}
         <article class="post post-1">
             <header class="entry-header">
@@ -24,7 +35,7 @@
             </div>
         </article>
     {% empty %}
-        <div class="no post">无发布文章！</div>
+        <div class="no post">Empty!</div>
     {% endfor %}
 
     {% if is_paginated %}
@@ -236,7 +247,7 @@
                     </ul>
                 </div>
                 <div class="rss">
-                    <a href=""><span class="ion-social-rss-outline"></span> RSS 订阅</a>
+                    <a href="{% url 'rss' %}"><span class="ion-social-rss-outline"></span> RSS 订阅</a>
                 </div>
             </aside>
         </div>
