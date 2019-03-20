@@ -6,14 +6,22 @@
             <div class="entry-meta">
                 <span class="post-category"><a href="#">{{ post.category.name }}</a></span>
                 <span class="post-date"><a href="#"><time class="entry-date"
-                                                          datetime="{{ post.created_time }}">{{ post.created_time}}</time></a></span>
-                <span class="post-author"><a href="#">{{post.author}}</a></span>
+                                                          datetime="{{ post.created_time }}">{{ post.created_time }}</time></a></span>
+                <span class="post-author"><a href="#">{{ post.author }}</a></span>
                 <span class="comments-link"><a href="#">Comments: {{ post.comment_set.count }}</a></span>
                 <span class="views-count"><a href="#">Views: {{ post.views }}</a></span>
             </div>
         </header>
         <div class="entry-content clearfix">
             {{ post.body|safe }}
+            <div class="widget-tag-cloud">
+                <ul>
+                    Tags:&nbsp;
+                    {% for tag in post.tags.all %}
+                        <li><a href="{% url 'blog:tag' tag.pk %}">#{{ tag.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </article>
     <section class="comment-area" id="comment-area">
@@ -49,41 +57,42 @@
             <h3>Comment List</h3>
             <ul class="comment-list list-unstyled">
                 {% for comment in comment_list %}
-                <li class="comment-item">
-                    <span class="nickname">{{ comment.name }}</span>
-                    <time class="submit-date">{{ comment.created_time }}</time>
-                    <div class="text">
-                        {{ comment.text }}
-                    </div>
-                </li>
+                    <li class="comment-item">
+                        <span class="nickname">{{ comment.name }}</span>
+                        <time class="submit-date">{{ comment.created_time }}</time>
+                        <div class="text">
+                            {{ comment.text }}
+                        </div>
+                    </li>
                 {% empty %}
-                No comment.
+                    No comment.
                 {% endfor %}
             </ul>
         </div>
     </section>
+
 {% endblock main %}
-{%  block toc %}
-<div class="widget widget-content">
-                    <h3 class="widget-title">文章目录</h3>
-                    <ul>
-                        <li>
-                            <a href="#">教程特点</a>
-                        </li>
-                        <li>
-                            <a href="#">谁适合这个教程</a>
-                        </li>
-                        <li>
-                            <a href="#">在线预览</a>
-                        </li>
-                        <li>
-                            <a href="#">资源列表</a>
-                        </li>
-                        <li>
-                            <a href="#">获取帮助</a>
-                        </li>
-                    </ul>
-                </div>
+{% block toc %}
+    <div class="widget widget-content">
+        <h3 class="widget-title">文章目录</h3>
+        <ul>
+            <li>
+                <a href="#">教程特点</a>
+            </li>
+            <li>
+                <a href="#">谁适合这个教程</a>
+            </li>
+            <li>
+                <a href="#">在线预览</a>
+            </li>
+            <li>
+                <a href="#">资源列表</a>
+            </li>
+            <li>
+                <a href="#">获取帮助</a>
+            </li>
+        </ul>
+    </div>
 {% endblock toc %}
 <!DOCTYPE html>
 <html>
