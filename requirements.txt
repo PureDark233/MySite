@@ -140,7 +140,7 @@ pytest-openfiles==0.3.1
 pytest-remotedata==0.3.1
 python-dateutil==2.7.5
 pytz==2018.9
-pywin32==223
+pywin32==301
 pywin32-ctypes==0.2.0
 pywinpty==0.5.5
 PyYAML==3.13
